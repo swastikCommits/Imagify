@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { assets } from '../assets/assets'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
+
 
 const Navbar = () => {
-    const [user, setUser] = useState(true); 
+    const {user} = useContext(AppContext)
     const navigate = useNavigate();
 
   return (
@@ -14,9 +16,9 @@ const Navbar = () => {
         <img src={assets.logo} alt=""  className='w-28 sm:w-32 lg:w-40'/>
         </Link>
 
-        <div>
+    <div>
             {user ? 
-            <div className='flex items-center gap-2 sm:gap-3'>
+            <div onClick={()=>{navigate('/buy')}} className='flex items-center gap-2 sm:gap-3'>
                 <button className='flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full gover:scale-105 transition-all duration-700'>
                     <img className='w-5' src={assets.credit_star} alt=""/>
                     <p className='text-xs sm:text-sm font-medium text-gray-600'>Credits left : 50</p>
@@ -25,8 +27,8 @@ const Navbar = () => {
                 <div className='relative group'>
                     <img src={assets.profile_icon} alt="" className='w-10 drop-shadow'/>
                     <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12'>
-                        <ul>
-                            <li>Logout</li>
+                        <ul className='list-none m-0 p-2 bg-white rounded-md border text-sm'>
+                            <li className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
                         </ul>
                     </div>
                 </div>
