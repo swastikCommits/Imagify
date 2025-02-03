@@ -15,7 +15,7 @@ const BuyCredit = () => {
 
       <div className="flex flex-wrap justify-center gap-6 text-left">
         {plans.map((item, index)=>(
-          <div key={index} className="bg-white drop-shadow-sm border rounded-lg py-12 px-8 text-gray-600 hover:scale-105 transition-all duration-500">
+          <div key={index} className="bg-white drop-shadow-sm rounded-lg py-12 px-8 text-gray-600 hover:scale-105 transition-all duration-500">
             <img width={40} src={assets.logo_icon} alt=""/>
             <p className="mt-3 mb-1 font-semibold">{item.id}</p>
             <p className="text-sm">{item.desc}</p>
