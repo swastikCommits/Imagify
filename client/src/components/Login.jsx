@@ -46,7 +46,7 @@ const Login = () => {
             :
             <p className='mt-5 text-center'>Already have an account? <span className='text-blue-600 cursor-pointer' onClick={()=>setState('Login')}>Login</span></p>}
 
-           <img onClick={()=>setShowLogin(false)} src={assets.close_icon} alt="" className='absolute top-5 right-5 cursor-pointer'/>
+           <img onClick={()=>setShowLogin(false)} src={assets.cross_icon} alt="" className='absolute top-5 right-5 cursor-pointer'/>
         </form>
 
     </div>
