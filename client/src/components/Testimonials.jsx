@@ -1,10 +1,16 @@
 import React from 'react';
 import { assets, testimonialsData } from '../assets/assets';
+import { motion } from 'framer-motion';
 
 
 const Testimonials = () => {
   return (
-    <div className='flex flex-col items-center justify-center my-20 py-6'>
+    <motion.div 
+    initial={{opacity:0.2, y: 100}}
+    animate={{opacity:1}}
+    transition={{delay:1, y:0}} 
+    viewport={{once:true}} 
+    className='flex flex-col items-center justify-center my-20 py-6'>
       
       <h1 className='text-3xl sm:text-4xl font-semibold mb-2'>Customer Testimonials</h1>
       <p className='tetx-gray-500 mb-12'>Turn your imagination into visuals</p>
@@ -27,7 +33,7 @@ const Testimonials = () => {
 
         )) }
       </div>
-    </div>
+    </motion.div>
   )
 }
 

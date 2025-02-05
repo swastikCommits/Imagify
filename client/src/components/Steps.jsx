@@ -1,10 +1,16 @@
 import React from 'react'
 import { stepsData } from '../assets/assets'
+import { motion } from 'framer-motion'
 
 
 const Steps = () => {
   return (
-    <div className='flex flex-col items-center justify-center my-32'>
+    <motion.div 
+    initial={{opacity:0.2, y: 100}}
+    animate={{opacity:1}}
+    transition={{delay:1, y:0}} 
+    viewport={{once:true}}
+    className='flex flex-col items-center justify-center my-32'>
       <h1 className='text-3xl sm:text-4xl font-semibold mb-2'>How it works</h1>
         <p>Transform Words Into Stunning Images</p>
 
@@ -20,7 +26,7 @@ const Steps = () => {
 
            ))} 
         </div>
-    </div>
+    </motion.div>
   )
 }
 
