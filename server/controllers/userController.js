@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
 
         const token=jwt.sign({id: user._id}, process.env.JWT_SECRET);
 
-        res.status(200).json({ token, user: { name: user.name }})
+        res.status(200).json({ user: { name: user.name }, token})
     }
     catch (error) {
         console.log(error);
@@ -34,7 +34,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try{
-        const {email, password} = req.body;
+        const { email, password } = req.body;
         const user = await userModel.findOne({ email });
 
         if(!user){
@@ -55,3 +55,5 @@ const loginUser = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+module.exports = { registerUser, loginUser };

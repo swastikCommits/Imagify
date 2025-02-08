@@ -4,20 +4,20 @@ const dotenv = require('dotenv/config');
 const connectDB = require('./config/mongodb.js');
 const userRouter = require('./routes/userRoutes.js');
 
+
 const PORT = process.env.PORT || 4000;
 const app = express();
 
-app.use('/api/user', userRouter);
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-(async () => {
-    try{
-        await connectDB(); 
-    } catch (error) {
-        console.log('Error connecting to the database');
-    }
-});
+
+app.use('/api/user', userRouter);
+// http://localhost:4000/api/user/register
+// http://localhost:4000/api/user/login
+
+
 
 
 app.get('/', (req, res) => {
@@ -27,3 +27,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
