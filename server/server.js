@@ -2,10 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv/config');
 const connectDB = require('./config/mongodb.js');
+const userRouter = require('./routes/userRoutes.js');
 
 const PORT = process.env.PORT || 4000;
 const app = express();
 
+app.use('/api/user', userRouter);
 app.use(express.json());
 app.use(cors());
 
