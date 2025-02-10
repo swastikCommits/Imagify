@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
         }
 
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+         const hashedPassword = await bcrypt.hash(password, salt);
 
         const userData = {
             name,
@@ -56,4 +56,19 @@ const loginUser = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, loginUser };
+const userCredits = async (req, res) => {
+    try{
+        const {userId}  = req.body;
+
+        const user = await userModel.findById(userId);
+        res.status(200).json({
+            credits: user.creditBalance,
+            user: { name: user.name }
+        })
+    } catch (error) {   
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }    
+}
+
+module.exports = { registerUser, loginUser, userCredits };
