@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv/config');
 const connectDB = require('./config/mongodb.js');
 const userRouter = require('./routes/userRoutes.js');
+const imageRouter = require('./routes/imageRoutes.js');
 
 
 const PORT = process.env.PORT || 4000;
@@ -16,6 +17,8 @@ app.use(cors());
 app.use('/api/user', userRouter);
 // http://localhost:4000/api/user/register
 // http://localhost:4000/api/user/login
+
+app.use('/api/image', imageRouter);
 
 
 
