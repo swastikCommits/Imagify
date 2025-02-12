@@ -3,6 +3,7 @@ import { assets } from '../assets/assets'
 import { AppContext } from '../context/AppContext'
 import { motion } from 'framer-motion'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Login = () => {
 
@@ -18,20 +19,33 @@ const Login = () => {
 
         try{
             if(state === 'Login'){
-                const data = axios.post(backendUrl +  '/api/user/login', {email, password});
+                const {data} = axios.post(backendUrl +  '/api/user/login', {email, password});
                 
                 if(data.success){
                     setToken(data.token);
                     setUser(data.user);
                     localStorage.setItem('token', data.token);
                     setShowLogin(false);
+                }else{
+                    toast.error(data.message);
                 }
-                else{
 
+            }else{
+                const {data} = axios.post(backendUrl +  '/api/user/register', {anme, email, password});
+                
+                if(data.success){
+                    setToken(data.token);
+                    setUser(data.user);
+                    localStorage.setItem('token', data.token);
+                    setShowLogin(false);
+                }else{
+                    toast.error(data.message);
                 }
+
+            }
 
         } catch (error) {
-
+            toast.error(error.message);
         }
     }
 
