@@ -22,28 +22,27 @@ const Login = () => {
             if(state === 'Login'){ 
                 const {data} = await axios.post(backendUrl +  '/api/user/login', {email, password});
                 
-                if(data.success){
+                if(data.token){
                     setToken(data.token);
                     setUser(data.user);
                     localStorage.setItem('token', data.token);
                     setShowLogin(false);
                 }else{
-                    toast.error(data.message);
+                    toast.error('Invalid credentials');
                 }
 
             }else{
                 const {data} = await axios.post(backendUrl +  '/api/user/register', {name, email, password});
                 
-                if(data.success){
+                if(data.token){
                     setToken(data.token);
                     setUser(data.user);
                     localStorage.setItem('token', data.token);
                     setShowLogin(false);
                     toast.success('Account created successfully!');
                 }else{
-                    toast.error(data.message);
+                    toast.error('Signup failed');
                 }
-
             }
 
         } catch (error) {
