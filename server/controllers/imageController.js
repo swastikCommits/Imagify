@@ -32,7 +32,7 @@ const generateImage = async (req, res) => {
 
         await userModel.findByIdAndUpdate(userId._id, {creditBalance: user.creditBalance - 1});
         
-        res.status(200).json({ message: 'Image Generated', creditBalance: user.creditBalance - 1, resultImage });
+        res.status(200).json({ success: true, message: 'Image Generated', creditBalance: user.creditBalance - 1, resultImage });
 
     } catch (error) {
         console.log(error);

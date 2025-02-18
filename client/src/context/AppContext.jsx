@@ -2,6 +2,8 @@ import { createContext, useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 export const AppContext = createContext();
 
@@ -17,7 +19,7 @@ const AppContextProvider = (props)=>{
     const navigate = useNavigate();
 
 
-    const loadCreditData = async () => {
+const loadCreditData = async () => {
         try {
             const {data} = await axios.get(backendUrl + '/api/user/credits', {headers: {token}});
 
@@ -29,30 +31,38 @@ const AppContextProvider = (props)=>{
             console.error(error);  
             toast.error(error.message);     
         }
-    }
+}
 
-    const generateImage = async (prompt) => {
-        try{
-            const {data} = await axios.post(backendUrl + '/api.image/generate-image', {prompt}, {headers: {token}});
+const generateImage = async (prompt) => {
+    try {
+        const { data } = await axios.post(backendUrl + '/api/image/generate-image', {prompt}, {headers: {token}});
+        console.log("Response from image generation:", data);
 
-            if(data.success){
-                loadCreditData;
-                return data.resultImage;
-            }
-        }
-        catch(error){
-            toast.error(data.message);
+        if(data.resultImage) {
+            await loadCreditData();
+            return data.resultImage;
+        } else {
+            toast.error(data.message || "Failed to generate image.");
             loadCreditData();
             if(data.creditBalance === 0){
                 navigate('/buy');
             }
+        }
+    } catch(error) {
+        console.error("Error generating image:", error);
+        toast.error(error.response?.data?.message || error.message);
+        loadCreditData();
+        if(error.response?.data?.creditBalance === 0){
+            navigate('/buy');
+        }
     }
 }
     const logout = () => {
-        localStorage.removeItem('token');
-        setToken('');
-        setUser(null);
+            localStorage.removeItem('token');
+            setToken('');
+            setUser(null);
     }
+    
     useEffect(() => {
         if(token){
             loadCreditData();
@@ -60,7 +70,7 @@ const AppContextProvider = (props)=>{
     }, [token]);
 
     const value={
-        user, setUser, showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, loadCreditData, logout
+        user, setUser, showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, loadCreditData, logout, generateImage
     }       
     return (
         <AppContext.Provider value={value}>
