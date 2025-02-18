@@ -1,12 +1,12 @@
 const { default: axios } = require('axios');
-const userModel = require('../models/userModel');
+const userModel = require('../models/userModel.js');
 const FormData = require('form-data');
 
 const generateImage = async (req, res) => {
     try{
         const { userId, prompt } = req.body;
-        
-        const user = await userModel.findById(userId);  
+
+        const user = await userModel.findById(userId);
 
         if(!user || !prompt){
             return res.status(411).json({ message: 'Missing Details' });
@@ -31,9 +31,8 @@ const generateImage = async (req, res) => {
         const resultImage = `data:image/png;base64,${base64Image}`;
 
         await userModel.findByIdAndUpdate(userId._id, {creditBalance: user.creditBalance - 1});
-        
-        res.status(200).json({ success: true, message: 'Image Generated', creditBalance: user.creditBalance - 1, resultImage });
 
+        res.status(200).json({ success: true, message: 'Image Generated', creditBalance: user.creditBalance-1, resultImage });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: error.message });

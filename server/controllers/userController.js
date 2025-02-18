@@ -2,6 +2,7 @@ const userModel = require('../models/userModel.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
 const registerUser = async (req, res) => {
     try{
         const { name, email, password } = req.body;
@@ -65,19 +66,24 @@ const loginUser = async (req, res) => {
 }
 
 const userCredits = async (req, res) => {
-    try{
-        const {userId}  = req.body;
-
+    try {
+        const { userId } = req.body; 
         const user = await userModel.findById(userId);
+        
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
         res.status(200).json({
             success: true,
             credits: user.creditBalance,
             user: { name: user.name }
-        })
-    } catch (error) {   
+        });
+    } catch (error) {
         console.log(error);
         res.status(500).json({ message: error.message });
-    }    
+    }
 }
 
 module.exports = { registerUser, loginUser, userCredits };

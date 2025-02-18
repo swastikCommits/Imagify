@@ -19,40 +19,40 @@ const AppContextProvider = (props)=>{
     const navigate = useNavigate();
 
 
-const loadCreditData = async () => {
+const loadCreditsData = async () => {
         try {
-            const {data} = await axios.get(backendUrl + '/api/user/credits', {headers: {token}});
-
-            if(data.success){
+            const { data } = await axios.get(backendUrl + '/api/user/credits', { headers: { token } });
+    
+            if (data.success) {
                 setCredit(data.credits);
                 setUser(data.user);
-            }
+            } 
         } catch (error) {
-            console.error(error);  
-            toast.error(error.message);     
+            console.error(error);
+            toast.error(error.message);
         }
 }
 
 const generateImage = async (prompt) => {
     try {
-        const { data } = await axios.post(backendUrl + '/api/image/generate-image', {prompt}, {headers: {token}});
+        const { data } = await axios.post(backendUrl + '/api/image/generate-image', { prompt }, { headers: { token } });
         console.log("Response from image generation:", data);
 
-        if(data.resultImage) {
-            await loadCreditData();
+        if (data.resultImage) {
+            await loadCreditsData();
             return data.resultImage;
         } else {
             toast.error(data.message || "Failed to generate image.");
-            loadCreditData();
-            if(data.creditBalance === 0){
+            await loadCreditsData();
+            if (data.creditBalance === 0) {
                 navigate('/buy');
             }
         }
-    } catch(error) {
+    } catch (error) {
         console.error("Error generating image:", error);
         toast.error(error.response?.data?.message || error.message);
-        loadCreditData();
-        if(error.response?.data?.creditBalance === 0){
+        await loadCreditsData();
+        if (error.response?.data?.creditBalance === 0) {
             navigate('/buy');
         }
     }
@@ -63,14 +63,14 @@ const generateImage = async (prompt) => {
             setUser(null);
     }
     
-    useEffect(() => {
+useEffect(() => {
         if(token){
-            loadCreditData();
+            loadCreditsData();
         }
-    }, [token]);
+}, [token]);
 
     const value={
-        user, setUser, showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, loadCreditData, logout, generateImage
+        user, setUser, showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, loadCreditsData, logout, generateImage
     }       
     return (
         <AppContext.Provider value={value}>
