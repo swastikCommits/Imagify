@@ -18,6 +18,7 @@ import cross_icon from './cross_icon.svg'
 import star_group from './star_group.png'
 import credit_star from './credit_star.svg'
 import profile_icon from './profile_icon.png'
+import x_icon from './x_icon.svg'
 
 export const assets = {
     logo,
@@ -34,7 +35,8 @@ export const assets = {
     cross_icon,
     star_group,
     credit_star,
-    profile_icon
+    profile_icon,
+    x_icon
 }
 
 export const stepsData = [
@@ -61,21 +63,21 @@ export const testimonialsData = [
         name:'Lawrence Bishnoi',
         role:'Mafia Don',
         stars:5,
-        text:`I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
+        text:`I've been using imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
     },
     {
         image:profile_img_2,
         name:'Babu Behera',
         role:'Content Creator',
         stars:5,
-        text:`I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
+        text:`I've been using imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
     },
     {
         image:profile_img_1,
         name:'Harkirat Singh',
         role:'Software Developer',
         stars:5,
-        text:`I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
+        text:`I've been using imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
     },
 ]
 

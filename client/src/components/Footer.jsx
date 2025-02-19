@@ -10,9 +10,12 @@ const Footer = () => {
       <p className='flex-1 border-l border-gray-400 pl-4 text-sm text-gray-500 max-sm:hidden'>Copyright @swastikCommits | All rights reserved.</p>
 
       <div className='flex gap-2.5'>
-        <img src={assets.twitter_icon} alt="" width={35}/>
+        <a href="https://x.com/SwastikRp38" target="_blank" rel="noopener noreferrer">
+          <img src={assets.twitter_icon_icon} alt="Twitter" width={35}/>
+        </a>
         <img src={assets.facebook_icon} alt="" width={35}/>
         <img src={assets.instagram_icon} alt="" width={35}/>
+        
       </div>
     </div>
   )
